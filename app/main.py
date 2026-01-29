@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import os
 from routes.connect import router as connect_router
 from routes.query import router as query_router
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 load_dotenv()
@@ -12,14 +14,18 @@ app = FastAPI(
      title=os.getenv("APP_NAME")
 )
 
-# Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",              # local frontend
+        "https://nlq-mysql-frontend.vercel.app"  # deployed frontend
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 
 # Include routers with /api prefix to match frontend
 app.include_router(connect_router, prefix="/api")
