@@ -5,8 +5,6 @@ from dotenv import load_dotenv
 import os
 from routes.connect import router as connect_router
 from routes.query import router as query_router
-from fastapi.middleware.cors import CORSMiddleware
-
 
 
 load_dotenv()
@@ -24,7 +22,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 
 # Include routers with /api prefix to match frontend
